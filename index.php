@@ -48,7 +48,8 @@ footer { font-size:2em; }
     <div class="col-sm-12">
       <p><span class="label label-default">Step 1: Initial environment deployment.</span></p>
       <p><span class="label label-default">Step 2: Some minor changes in HTML.</span></p>
-      <p><span class="label label-primary">Step 3 (current): Getting the JSON data from external server - fails due to incorrect JSON.</span></p>
+      <p><span class="label label-default">Step 3: Getting the JSON data from external server - fails due to incorrect JSON.</span></p>
+      <p><span class="label label-primary">Step 4 (current): Getting the JSON data from external server - successful this time</span></p>
     </div>
 
     <table class="table" style="font-size:0.7em; color:#999;">
