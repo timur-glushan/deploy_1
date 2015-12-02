@@ -49,7 +49,8 @@ footer { font-size:2em; }
       <p><span class="label label-default">Step 1: Initial environment deployment.</span></p>
       <p><span class="label label-default">Step 2: Some minor changes in HTML.</span></p>
       <p><span class="label label-default">Step 3: Getting the JSON data from external server - fails due to incorrect JSON.</span></p>
-      <p><span class="label label-primary">Step 4 (current): Getting the JSON data from external server - successful this time</span></p>
+      <p><span class="label label-default">Step 4: Getting the JSON data from external server - successful this time.</span></p>
+      <p><span class="label label-primary">Step 5 (current): The authors info is added to posts.</span></p>
     </div>
 
     <table class="table" style="font-size:0.7em; color:#999;">
@@ -57,19 +58,36 @@ footer { font-size:2em; }
 
 $response = file_get_contents(SERVER_HOST_URL . SERVER_HOST_PATH_HOME);
 $data = json_decode($response, TRUE);
+$authors = [];
 
-if (is_array($data) && !empty($data)) { foreach($data as $post) { ?>
+if (is_array($data) && !empty($data)) {
+  foreach($data as $post) {
+    if ($post["author"] && strlen($post["author"]) ) {
+      if (!isset($authors[$post["author"]])) {
+        $authors[$post["author"]] = 1;
+      } else {
+        $authors[$post["author"]]++;
+      }
+    }
+?>
       <tr>
         <th width="5%"><?php echo $post["id"]; ?></th>
         <th width="10%"><?php echo $post["name"]; ?></th>
-        <td width="85%"><?php echo $post["body"]; ?></td>
+        <td width="70%"><?php echo $post["body"]; ?></td>
+        <td width="15%"><?php echo $post["author"]; ?></td>
       </tr>
-<?php } } else { ?>
+<?php
+  }
+} else {
+?>
       <tr><th>No posts found at the external server</th></tr>
-<?php } ?>
+<?php
+}
+?>
     </table>
 
     <div class="col-sm-12" style="font-size:0.7em; color:#999;">Total posts: <?php echo count($data); ?></div>
+    <div class="col-sm-12" style="font-size:0.7em; color:#999;">Total authors: <?php echo count($authors); ?></div>
   </div>
 </article>
 <footer>

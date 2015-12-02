@@ -92,6 +92,14 @@ class TestPostCount extends TestCase
   }
 }
 
+class TestAuthorCount extends TestCase
+{
+  public function run() {
+    $page = $this->get(CLIENT_HOST_URL . CLIENT_HOST_PATH_HOME);
+    return strpos($page, "Total authors: 0") === FALSE;
+  }
+}
+
 
 
 $testSuite = new TestSuite();
@@ -102,5 +110,7 @@ $testHomePageChanged = new TestHomePageChanged();
 $testHomePageActual = new TestHomePageActual();
 //$testSuite->register("HomePage should be up to date", $testHomePageActual);
 $testPostCount = new TestPostCount();
-$testSuite->register("There should be at least 1 post", $testPostCount);
+//$testSuite->register("There should be at least 1 post", $testPostCount);
+$testAuthorCount = new TestAuthorCount();
+$testSuite->register("There should be at least 1 author", $testAuthorCount);
 $testSuite->execute();
