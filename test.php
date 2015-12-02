@@ -68,9 +68,29 @@ class TestHomePage extends TestCase
   }
 }
 
+class TestHomePageChanged extends TestCase
+{
+  public function run() {
+    $page = $this->get(CLIENT_HOST_URL . CLIENT_HOST_PATH_HOME);
+    return strpos($page, "Step 1 (current): Initial environment deployment.") === FALSE;
+  }
+}
+
+class TestHomePageActual extends TestCase
+{
+  public function run() {
+    $page = $this->get(CLIENT_HOST_URL . CLIENT_HOST_PATH_HOME);
+    return strpos($page, "Step 2 (current): Some minor changes in HTML.") !== FALSE;
+  }
+}
+
 
 
 $testSuite = new TestSuite();
 $testHomePage = new TestHomePage();
-$testSuite->register("HomePage", $testHomePage);
+//$testSuite->register("HomePage", $testHomePage);
+$testHomePageChanged = new TestHomePageChanged();
+$testSuite->register("HomePage should be changed", $testHomePageChanged);
+$testHomePageActual = new TestHomePageActual();
+$testSuite->register("HomePage should be up to date", $testHomePageActual);
 $testSuite->execute();

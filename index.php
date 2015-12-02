@@ -42,7 +42,8 @@ footer { font-size:2em; }
 <article>
   <div class="container-fluid">
     <div class="col-sm-12">
-      <p><span class="label label-primary">Step 1 (current): Initial environment deployment.</span></p>
+      <p><span class="label label-default">Step 1: Initial environment deployment.</span></p>
+      <p><span class="label label-primary">Step 2 (current): Some minor changes in HTML.</span></p>
     </div>
   </div>
 </article>
