@@ -1,4 +1,8 @@
-<!doctype html>
+<?php
+
+require_once("config.php");
+
+?><!doctype html>
 <html>
 <head>
   <title>AWS Deployment Test #1 by IT-Giants</title>
@@ -43,8 +47,28 @@ footer { font-size:2em; }
   <div class="container-fluid">
     <div class="col-sm-12">
       <p><span class="label label-default">Step 1: Initial environment deployment.</span></p>
-      <p><span class="label label-primary">Step 2 (current): Some minor changes in HTML.</span></p>
+      <p><span class="label label-default">Step 2: Some minor changes in HTML.</span></p>
+      <p><span class="label label-primary">Step 3 (current): Getting the JSON data from external server - fails due to incorrect JSON.</span></p>
     </div>
+
+    <table class="table" style="font-size:0.7em; color:#999;">
+<?php
+
+$response = file_get_contents(SERVER_HOST_URL . SERVER_HOST_PATH_HOME);
+$data = json_decode($response, TRUE);
+
+if (is_array($data) && !empty($data)) { foreach($data as $post) { ?>
+      <tr>
+        <th width="5%"><?php echo $post["id"]; ?></th>
+        <th width="10%"><?php echo $post["name"]; ?></th>
+        <td width="85%"><?php echo $post["body"]; ?></td>
+      </tr>
+<?php } } else { ?>
+      <tr><th>No posts found at the external server</th></tr>
+<?php } ?>
+    </table>
+
+    <div class="col-sm-12" style="font-size:0.7em; color:#999;">Total posts: <?php echo count($data); ?></div>
   </div>
 </article>
 <footer>

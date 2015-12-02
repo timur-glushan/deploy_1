@@ -84,13 +84,23 @@ class TestHomePageActual extends TestCase
   }
 }
 
+class TestPostCount extends TestCase
+{
+  public function run() {
+    $page = $this->get(CLIENT_HOST_URL . CLIENT_HOST_PATH_HOME);
+    return strpos($page, "Total posts: 0") === FALSE;
+  }
+}
+
 
 
 $testSuite = new TestSuite();
 $testHomePage = new TestHomePage();
 //$testSuite->register("HomePage", $testHomePage);
 $testHomePageChanged = new TestHomePageChanged();
-$testSuite->register("HomePage should be changed", $testHomePageChanged);
+//$testSuite->register("HomePage should be changed", $testHomePageChanged);
 $testHomePageActual = new TestHomePageActual();
-$testSuite->register("HomePage should be up to date", $testHomePageActual);
+//$testSuite->register("HomePage should be up to date", $testHomePageActual);
+$testPostCount = new TestPostCount();
+$testSuite->register("There should be at least 1 post", $testPostCount);
 $testSuite->execute();
